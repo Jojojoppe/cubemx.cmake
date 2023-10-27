@@ -87,6 +87,11 @@ if __name__ == "__main__":
         mcuFlags += [f"-mfpu={fpu}"]
 
     mcuLine = iocConf["Mcu.UserName"][0:9] + "xx"
+    # For f1 series use other naming convention
+    if mcuFamily=="STM32F1":
+        suffixes = {"6":"6", "8":"B", "B":"B", "G":"G", "E":"E", "C":"C"}
+        mcuLine = iocConf["Mcu.UserName"][0:9] + "x" + suffixes[iocConf["Mcu.UserName"][10]]
+
     cdefs = [mcuLine]
     for key in "HSE", "HSI", "LSI":
         iocKey = 'RCC.' + key + '_VALUE'

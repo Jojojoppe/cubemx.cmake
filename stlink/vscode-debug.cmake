@@ -5,7 +5,7 @@ foreach(opt IN LISTS CMX_DEBUGGER_OPT)
 endforeach()
 
 function(vscode_debug PROJ_NAME)
-    set(PROJ_ELF_PATH "${CMAKE_BINARY_DIR}/${PROJ_NAME}.elf")
+    set(PROJ_ELF_PATH "${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME}.elf")
     file(MAKE_DIRECTORY "${VSCODE_DIR}")
     configure_file(
         "${STLINK_DIR}/vscode-debug.in"

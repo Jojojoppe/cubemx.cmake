@@ -53,6 +53,7 @@ function(cmx_get KEY_NAME VAR_NAME)
         message(FATAL_ERROR "cubemx-cmake.py failed - aborting")
     endif()
     set(${VAR_NAME} ${KEY_VAL} PARENT_SCOPE)
+    message(STATUS "cubemx-cmake.py: ${VAR_NAME} = ${KEY_VAL}")
 endfunction()
 
 function(add_default_sources)

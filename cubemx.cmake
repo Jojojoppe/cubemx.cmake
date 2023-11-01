@@ -208,5 +208,5 @@ function(cubemx_target)
 
     mcu_image_utils(${CMX_TARGET} "${CMX_ELF2BIN_OPT}" "${CMX_ELF2LST_OPT}")
     flash_target(${CMX_TARGET} ${CMX_FLASH_TARGET_NAME} ${CMX_IMG_ADDR})
-    vscode_debug(${CMX_TARGET})
+    # vscode_debug(${CMX_TARGET})
 endfunction()

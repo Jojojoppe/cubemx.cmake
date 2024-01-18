@@ -74,6 +74,7 @@ function(add_default_sources)
 endfunction()
 
 function(add_startup)
+    message("START CMX_STARTUP: ${CMX_STARTUP} CUBEMX_CORE_DIR ${CMX_CUBEMX_CORE_DIR}")
     if("${CMX_STARTUP}" STREQUAL "")
         # Check if the "Makefile" startupfile is in the source tree
         cmx_get(startupfile_makefile CMX_STARTUPFILE)
@@ -190,23 +191,23 @@ function(cubemx_target)
     cmx_get(mcuflags CMX_MCUFLAGS)
     cmx_get(cdefs CMX_CDEFS)
 
-    target_compile_options(${CMX_TARGET} PRIVATE ${CMX_MCUFLAGS})
-    target_compile_options(${CMX_TARGET} PRIVATE -ffunction-sections -fdata-sections)
-    target_compile_definitions(${CMX_TARGET} PRIVATE ${CMX_CDEFS})
+    target_compile_options(${CMX_TARGET} PUBLIC ${CMX_MCUFLAGS})
+    target_compile_options(${CMX_TARGET} PUBLIC -ffunction-sections -fdata-sections)
+    target_compile_definitions(${CMX_TARGET} PUBLIC ${CMX_CDEFS})
     target_link_options(${CMX_TARGET} PUBLIC ${CMX_MCUFLAGS})
-    target_link_options(${CMX_TARGET} PRIVATE "-T${CMX_LDSCRIPT}")
-    target_link_options(${CMX_TARGET} PRIVATE
+    target_link_options(${CMX_TARGET} PUBLIC "-T${CMX_LDSCRIPT}")
+    target_link_options(${CMX_TARGET} PUBLIC
         -Wl,--gc-sections
         --specs=nano.specs
     )
-    target_link_libraries(${CMX_TARGET} c m nosys)
+    target_link_libraries(${CMX_TARGET} PUBLIC c m nosys)
     target_sources(${CMX_TARGET} PRIVATE ${CMX_SRC})
-    target_include_directories(${CMX_TARGET} PRIVATE ${CMX_INC})
-    target_link_options(${CMX_TARGET} PRIVATE -Xlinker --print-memory-usage)
+    target_include_directories(${CMX_TARGET} PUBLIC ${CMX_INC})
+    # target_link_options(${CMX_TARGET} PRIVATE -Xlinker --print-memory-usage)
 
     set_property(TARGET ${CMX_TARGET} PROPERTY TARGET_FILE_ELF "${CMAKE_CURRENT_BINARY_DIR}/${CMX_TARGET}.elf")
 
-    mcu_image_utils(${CMX_TARGET} "${CMX_ELF2BIN_OPT}" "${CMX_ELF2LST_OPT}")
-    flash_target(${CMX_TARGET} ${CMX_FLASH_TARGET_NAME} ${CMX_IMG_ADDR})
+    # mcu_image_utils(${CMX_TARGET} "${CMX_ELF2BIN_OPT}" "${CMX_ELF2LST_OPT}")
+    # flash_target(${CMX_TARGET} ${CMX_FLASH_TARGET_NAME} ${CMX_IMG_ADDR})
     # vscode_debug(${CMX_TARGET})
 endfunction()

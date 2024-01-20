@@ -91,6 +91,9 @@ if __name__ == "__main__":
     if mcuFamily=="STM32F1":
         suffixes = {"6":"6", "8":"B", "B":"B", "G":"G", "E":"E", "C":"C"}
         mcuLine = iocConf["Mcu.UserName"][0:9] + "x" + suffixes[iocConf["Mcu.UserName"][10]]
+    elif mcuFamily=="STM32F0":
+        suffixes = {"6":"6", "8":"8", "B":"B", "G":"G", "E":"E", "C":"C"}
+        mcuLine = iocConf["Mcu.UserName"][0:9] + "x" + suffixes[iocConf["Mcu.UserName"][10]]
 
     cdefs = [mcuLine]
     for key in "HSE", "HSI", "LSI":
